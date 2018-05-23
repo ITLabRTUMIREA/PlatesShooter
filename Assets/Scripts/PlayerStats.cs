@@ -18,19 +18,10 @@ public class PlayerStats : MonoBehaviour
 
     private float minutes;
     private float seconds;
-
-    public void StartTimer(float from)
-    {
-        stop = false;
-        timeLeft = from;
-        Update();
-        StartCoroutine(updateCoroutine());
-    }
     
     void Start ()
     {
-        scoreText.text = "0 / 100";
-        StartTimer(timerLength);
+        ResetScore();
     }
 	
 	void Update ()
@@ -39,11 +30,13 @@ public class PlayerStats : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            score = 0;
-            scoreText.text = "0 / 100";
-            wonText.gameObject.SetActive(false);
-            stop = false;
-            timeLeft = timerLength;
+            ResetScore();
+            StartTimer(timerLength);
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            ResetScore();
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -51,6 +44,22 @@ public class PlayerStats : MonoBehaviour
             Scene scene = SceneManager.GetActiveScene();
             SceneManager.LoadScene(scene.name);
         }
+    }
+
+    public void ResetScore()
+    {
+        score = 0;
+        scoreText.text = "0 / 100";
+        timerText.text = "waiting";
+        wonText.gameObject.SetActive(false);
+        stop = true;
+    }
+
+    public void StartTimer(float from)
+    {
+        stop = false;
+        timeLeft = from;
+        StartCoroutine(UpdateCoroutine());
     }
 
     private void UpdateTimer()
@@ -88,7 +97,7 @@ public class PlayerStats : MonoBehaviour
         scoreText.text = this.score.ToString() + " / 100";
     }
 
-    private IEnumerator updateCoroutine()
+    private IEnumerator UpdateCoroutine()
     {
         while (!stop)
         {
