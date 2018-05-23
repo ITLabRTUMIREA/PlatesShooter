@@ -11,6 +11,7 @@ TagManager:
   - MagPM
   - Mag
   - Bullet
+  - Controller
   layers:
   - Default
   - TransparentFX

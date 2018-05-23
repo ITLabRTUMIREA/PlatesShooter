@@ -13,6 +13,11 @@ public class DebugGun : MonoBehaviour {
     public float cooldownTime;
     private float currentCooldownTime;
 
+    public ParticleSystem particleSystem;
+    private Animation animation;
+
+    public TwoHandGrab twoHandGrab;
+
     private SteamVR_TrackedObject attachedController = null;
 
     private SteamVR_Controller.Device Controller
@@ -38,9 +43,18 @@ public class DebugGun : MonoBehaviour {
             bullet.GetComponent<Rigidbody>().AddForce(direction * impulse, ForceMode.Impulse);
 
             Controller.TriggerHapticPulse(3999);
-            GetComponent<Animation>().Stop();
-            GetComponent<Animation>()["pm_shoot"].speed = 10;
-            GetComponent<Animation>().Play(PlayMode.StopAll);
+
+            if (animation != null)
+            {
+                GetComponent<Animation>().Stop();
+                GetComponent<Animation>()["pm_shoot"].speed = 10;
+                GetComponent<Animation>().Play(PlayMode.StopAll);
+            }
+
+            if (particleSystem != null)
+            {
+                particleSystem.Play();
+            }
 
             currentCooldownTime = cooldownTime;
         }
@@ -49,6 +63,11 @@ public class DebugGun : MonoBehaviour {
     public bool IsAttached()
     {
         return attachedController != null;
+    }
+
+    private void Start()
+    {
+        animation = GetComponent<Animation>();
     }
 
     public void AttachController(SteamVR_TrackedObject controller)
