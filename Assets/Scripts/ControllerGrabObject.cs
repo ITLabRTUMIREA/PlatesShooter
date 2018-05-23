@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class ControllerGrabObject : MonoBehaviour {
 
+    public Transform gunBase;
+    public GameObject controllerModel;
+
+    private GameObject grabbedObject;
+
     private SteamVR_TrackedObject trackedObj;
-
-    private GameObject collidingObject;
-    private GameObject objectInHand;
-    private Collider collide;
-
-    private bool Taken = false;
-
+    
     private Collider[] Touchcollider;
+
+    private bool grabbingFinished = true;
 
     private SteamVR_Controller.Device Controller
     {
@@ -24,78 +25,76 @@ public class ControllerGrabObject : MonoBehaviour {
         trackedObj = GetComponent<SteamVR_TrackedObject>();
     }
 
-    private void SetCollidingObject(Collider col)
+    public void OnTriggerStay(Collider other)
     {
-        collide = col;
-        collidingObject = col.gameObject;   
-        col.gameObject.transform.SetParent(gameObject.transform);
-        collide.attachedRigidbody.useGravity = false;
-        gameObject.transform.GetChild(0).gameObject.SetActive(false);
-        col.gameObject.transform.position = gameObject.transform.position;
-        collide.attachedRigidbody.useGravity = false;
-        collidingObject.GetComponent<Collider>().enabled = false;
-        collidingObject.GetComponent<DebugGun>().AttachController(trackedObj);
-    }
-
-    public void OnTriggerEnter(Collider other)
-    {
-
-    }
-
-     public void OnTriggerStay(Collider other)
-    {
-        if (Controller.GetHairTrigger() && !Taken && other.tag == "Gun")
+        if (grabbedObject == null && other.tag == "Gun")
         {
-            SetCollidingObject(other);
-            Taken = true;
-            print("Triggered " + other.name);
+            Controller.TriggerHapticPulse(1000);
+
+            if (Controller.GetPressDown(SteamVR_Controller.ButtonMask.Grip) && !other.GetComponent<DebugGun>().IsAttached())
+            {
+                GrabObjet(other.gameObject);
+                Debug.Log("Grabbed");
+            }
         }
     }
 
-    public void OnTriggerExit(Collider other)
+    
+    public void GrabObjet(GameObject gameObject)
     {
-        
+        if (grabbedObject != null)
+        {
+            DropObject();
+        }
+
+        grabbedObject = gameObject;
+
+        controllerModel.SetActive(false);
+
+        DebugGun debugGun = grabbedObject.GetComponent<DebugGun>();
+
+        grabbedObject.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+        grabbedObject.gameObject.GetComponent<Rigidbody>().freezeRotation = true;
+        grabbedObject.gameObject.GetComponent<Rigidbody>().useGravity = false;
+        grabbedObject.gameObject.GetComponent<Collider>().enabled = false;
+
+        grabbedObject.gameObject.transform.SetParent(gunBase);
+        grabbedObject.gameObject.transform.localPosition = debugGun.handPosition;
+        grabbedObject.gameObject.transform.localRotation = Quaternion.Euler(debugGun.handRotation);
+
+        debugGun.AttachController(trackedObj);
+
+        grabbingFinished = false;
     }
 
-    // Update is called once per frame
+    public void DropObject()
+    {
+        if (grabbedObject == null) return;
+
+        grabbedObject.gameObject.transform.SetParent(null);
+
+        controllerModel.SetActive(true);
+
+        grabbedObject.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+        grabbedObject.gameObject.GetComponent<Rigidbody>().freezeRotation = false;
+        grabbedObject.gameObject.GetComponent<Rigidbody>().useGravity = true;
+        grabbedObject.gameObject.GetComponent<Collider>().enabled = true;
+
+        grabbedObject.GetComponent<DebugGun>().DetachController();
+
+        grabbedObject = null;
+    }
+    
     void Update () {
-        if (Taken) { collide.gameObject.transform.position = gameObject.transform.position; }
-        if (Controller.GetPress(SteamVR_Controller.ButtonMask.Grip) && Taken)
+        if (grabbingFinished && Controller.GetPressDown(SteamVR_Controller.ButtonMask.Grip) && grabbedObject != null)
         {
-            Taken = false;
-            collidingObject.gameObject.transform.SetParent(null);
-            gameObject.transform.GetChild(0).gameObject.SetActive(true);
-            collidingObject.GetComponent<Collider>().enabled = true;
-            collide.attachedRigidbody.useGravity = true;
-            collidingObject.GetComponent<DebugGun>().DetachController();
+            DropObject();
+            Debug.Log("Dropped");
         }
 
-        //if (Controller.GetHairTrigger() && !Taken)
-        //{
-        //    Touchcollider = Physics.OverlapSphere(trackedObj.transform.position, 0.005f);
-
-        //    foreach (Collider col in Touchcollider) {
-        //        if (col.gameObject.name == "pm" || col.gameObject.name == "ak") {
-        //            GrabObject(col.gameObject);
-        //            Taken = true;
-        //            break;
-        //        }
-        //    }
-        //}
-
-        //if (Controller.GetPress(SteamVR_Controller.ButtonMask.Grip))
-        //{
-        //    if (objectInHand)
-        //    {
-        //        ReleaseObject();
-        //        Taken = false;
-        //    }
-        //}
-
-    }
-
-    IEnumerator half()
-    {
-        yield return new WaitForSeconds(2);
+        if (Controller.GetPressUp(SteamVR_Controller.ButtonMask.Grip))
+        {
+            grabbingFinished = true;
+        }
     }
 }

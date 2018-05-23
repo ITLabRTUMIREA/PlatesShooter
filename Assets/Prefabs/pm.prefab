@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 33242959958817540}
   - component: {fileID: 64068186545959222}
   - component: {fileID: 54571511508321346}
-  - component: {fileID: 114621346942390170}
   - component: {fileID: 23742788245588896}
   - component: {fileID: 114145752246092558}
   - component: {fileID: 111733765995184004}
@@ -135,8 +134,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1030750517237882}
-  m_LocalRotation: {x: 0.49999997, y: -0.5, z: -0.5, w: 0.50000006}
-  m_LocalPosition: {x: 0.1, y: 0.79, z: 0.232}
+  m_LocalRotation: {x: -0.5, y: -0.50000006, z: -0.50000006, w: -0.5}
+  m_LocalPosition: {x: -0.234, y: 0.797, z: 0.215}
   m_LocalScale: {x: 0.0011181353, y: 0.0011181373, z: 0.0011181373}
   m_Children:
   - {fileID: 4435588235927318}
@@ -208,9 +207,11 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 4552f63936bdda740bc5a72773c67947, type: 2}
   m_StaticBatchInfo:
@@ -223,6 +224,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -240,9 +242,11 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 4552f63936bdda740bc5a72773c67947, type: 2}
   m_StaticBatchInfo:
@@ -255,6 +259,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -272,9 +277,11 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 4552f63936bdda740bc5a72773c67947, type: 2}
   m_StaticBatchInfo:
@@ -287,6 +294,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -304,9 +312,11 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 4552f63936bdda740bc5a72773c67947, type: 2}
   m_StaticBatchInfo:
@@ -319,6 +329,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -336,9 +347,11 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 4552f63936bdda740bc5a72773c67947, type: 2}
   m_StaticBatchInfo:
@@ -351,6 +364,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -418,9 +432,9 @@ MeshCollider:
   m_Material: {fileID: 13400000, guid: 01571ba68fb2dad46aa03094ab219579, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Convex: 1
-  m_InflateMesh: 0
+  m_CookingOptions: 14
   m_SkinWidth: 1e-14
   m_Mesh: {fileID: 4300000, guid: 45b08677cbcfc414f937226fbf703901, type: 3}
 --- !u!111 &111733765995184004
@@ -452,22 +466,7 @@ MonoBehaviour:
   bulletObject: {fileID: 1077702871906588, guid: c21fe38239405464fb1ced6c4072957f,
     type: 2}
   shootingPoint: {fileID: 1549345019652456}
+  handPosition: {x: 0, y: -0.07, z: -0.03}
+  handRotation: {x: -30, y: 0, z: 180}
   impulse: 400
   cooldownTime: 0.1
---- !u!114 &114621346942390170
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1030750517237882}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e15d4d68e44d921428eb7e336db0377b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Magazine: {fileID: 1211030220257776, guid: 0691c96e0192d3e4385e4e71522d6390, type: 2}
-  range: 0
-  mag: 0
-  power: 0
-  typefire: 
-  cooldown: 0

@@ -6,6 +6,9 @@ public class DebugGun : MonoBehaviour {
     public GameObject bulletObject;
     public GameObject shootingPoint;
 
+    public Vector3 handPosition;
+    public Vector3 handRotation;
+
     public float impulse;
     public float cooldownTime;
     private float currentCooldownTime;
@@ -34,7 +37,7 @@ public class DebugGun : MonoBehaviour {
 
             bullet.GetComponent<Rigidbody>().AddForce(direction * impulse, ForceMode.Impulse);
 
-            Controller.TriggerHapticPulse(800);
+            Controller.TriggerHapticPulse(3999);
             GetComponent<Animation>().Stop();
             GetComponent<Animation>()["pm_shoot"].speed = 10;
             GetComponent<Animation>().Play(PlayMode.StopAll);
@@ -42,6 +45,11 @@ public class DebugGun : MonoBehaviour {
             currentCooldownTime = cooldownTime;
         }
 	}
+
+    public bool IsAttached()
+    {
+        return attachedController != null;
+    }
 
     public void AttachController(SteamVR_TrackedObject controller)
     {
