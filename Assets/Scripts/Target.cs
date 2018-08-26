@@ -16,7 +16,7 @@ public class Target : MonoBehaviour {
 		
 	}
 
-    void OnTriggerEnter(Collider collider)
+    void OnCollisionEnter(Collider collider)
     {
         if (collider.gameObject.tag == "Bullet" && !died)
         {
