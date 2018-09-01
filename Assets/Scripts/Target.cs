@@ -16,9 +16,9 @@ public class Target : MonoBehaviour {
 		
 	}
 
-    void OnCollisionEnter(Collider collider)
+    void OnCollisionEnter(Collision collision)
     {
-        if (collider.gameObject.tag == "Bullet" && !died)
+        if (collision.gameObject.tag == "Bullet" && !died)
         {
             playerStats.AddScore(1);
             died = true;
